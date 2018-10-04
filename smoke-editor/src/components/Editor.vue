@@ -1,6 +1,6 @@
 <template>
   <div>
-    <div class="dropdown is-active"><!--if "is-active" is removed, the menu is closed-->
+    <div class="dropdown is-hoverable"><!--if "is-active" is removed, the menu is closed-->
       <div class="dropdown-trigger">
         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
           <span>Select Program</span>
@@ -11,16 +11,16 @@
       </div>
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
         <div class="dropdown-content">
-          <a href="#" class="dropdown-item">
+          <a href="#" class="dropdown-item is-hoverable">
             item
           </a>
-          <a href="#" class="dropdown-item">
-            item
-          <a href="#" class="dropdown-item is-active"><!--Active-->
+          <a href="#" class="dropdown-item is-hoverable">
             item
           </a>
+          <a href="#" class="dropdown-item is-hoverable">
+            item
           </a>
-          <a href="#" class="dropdown-item">
+          <a href="#" class="dropdown-item is-hoverable">
             item
           </a>
         </div>
