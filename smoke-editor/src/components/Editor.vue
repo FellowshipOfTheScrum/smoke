@@ -1,11 +1,11 @@
 <template>
   <div id = "editor">
-    <div class="dropdown is-active">
+    <div class="dropdown"><!-- 'is-active' gets filled with js -->
       <div class="dropdown-trigger">
         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
           <span>Editor Mode</span>
           <span class="icon is-small">
-        <i class="fas fa-angle-down" aria-hidden="true"></i>
+          <i class="fas fa-angle-down" aria-hidden="true"></i>
       </span>
         </button>
       </div>
@@ -26,34 +26,6 @@
         </div>
       </div>
     </div>
-  <div>
-    <div class="dropdown is-hoverable"><!--if "is-active" is removed, the menu is closed-->
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-          <span>Select Program</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <a href="#" class="dropdown-item is-hoverable">
-            item
-          </a>
-          <a href="#" class="dropdown-item is-hoverable">
-            item
-          </a>
-          <a href="#" class="dropdown-item is-hoverable">
-            item
-          </a>
-          <a href="#" class="dropdown-item is-hoverable">
-            item
-          </a>
-        </div>
-      </div>
-    </div>
-    <p>Selected Program: <span>{{activeProgram}}</span></p>
     <brace style="height: 500px"
       :fontsize="'12px'"
       :theme="'github'"
@@ -64,12 +36,22 @@
       :highlightline="true">
     </brace>
   </div>
-  </div>
 </template>
 
 <script>
-// To control button's behavior: open or close
-'use strict'
+import Brace from 'vue-bulma-brace'
+export default {
+  components: {
+    Brace
+  },
+  methods: {
+    myFunction: function () {
+      document.getElementById('myDropdown').classList.toggle('show')
+    }
+  }
+}
+
+// To 'Editor Mode' button behavior: open or close
 document.addEventListener('DOMContentLoaded', function () {
   // Dropdown
   var $dropdown = getAll('.dropdown:not(.is-active)')
@@ -101,33 +83,4 @@ document.addEventListener('DOMContentLoaded', function () {
     return Array.prototype.slice.call(document.querySelectorAll(selector), 0)
   }
 })
-</script>
-
-<script>
-import 'bulma/css/bulma.css'
-import Brace from 'vue-bulma-brace'
-export default {
-  components: {
-    Brace
-  },
-  methods: {
-    myFunction: function () {
-      document.getElementById('myDropdown').classList.toggle('show')
-    }
-  }
-}
-
-// Close the dropdown menu if the user clicks outside of it
-window.onclick = function (event) {
-  if (!event.target.matches('.dropbtn')) {
-    var dropdowns = document.getElementsByClassName('dropdown-content')
-    var i
-    for (i = 0; i < dropdowns.length; i++) {
-      var openDropdown = dropdowns[i]
-      if (openDropdown.classList.contains('show')) {
-        openDropdown.classList.remove('show')
-      }
-    }
-  }
-}
 </script>
