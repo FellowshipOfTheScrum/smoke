@@ -1,12 +1,12 @@
 <template>
   <div id = "editor">
-    <div class="dropdown"><!-- 'is-active' gets filled with js -->
+    <div class="dropdown"><!-- 'is-active' gets filled with JavaScript -->
       <div class="dropdown-trigger">
         <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
           <span>Editor Mode</span>
           <span class="icon is-small">
-          <i class="fas fa-angle-down" aria-hidden="true"></i>
-      </span>
+            <i class="fas fa-angle-down" aria-hidden="true"></i>
+          </span>
         </button>
       </div>
       <div class="dropdown-menu" id="dropdown-menu" role="menu">
@@ -51,8 +51,8 @@ export default {
   }
 }
 
-// To 'Editor Mode' button behavior: open or close
-document.addEventListener('DOMContentLoaded', function () {
+// For 'Editor Mode' button behavior: open or close - starts after 1st mouse click
+document.addEventListener('click', function () {
   // Dropdown
   var $dropdown = getAll('.dropdown:not(.is-active)')
   if ($dropdown.length > 0) {
