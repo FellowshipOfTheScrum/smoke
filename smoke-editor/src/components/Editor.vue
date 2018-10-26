@@ -1,86 +1,109 @@
 <template>
-  <div id = "editor">
-    <div class="dropdown"><!-- 'is-active' gets filled with JavaScript -->
-      <div class="dropdown-trigger">
-        <button class="button" aria-haspopup="true" aria-controls="dropdown-menu">
-          <span>Editor Mode</span>
-          <span class="icon is-small">
-            <i class="fas fa-angle-down" aria-hidden="true"></i>
-          </span>
-        </button>
-      </div>
-      <div class="dropdown-menu" id="dropdown-menu" role="menu">
-        <div class="dropdown-content">
-          <a href="#" class="dropdown-item">
-            Python 2
-          </a>
-          <a class="dropdown-item">
-            Python 3
-          </a>
-          <a href="#" class="dropdown-item">
-            Ruby
-          </a>
-          <a href="#" class="dropdown-item">
-            Javascript
-          </a>
+  <section>
+      <div class = "columns"> <!--Starts columns-->
+          <div class = "column"> <!--Left Auto column-->
+          <!--This makes the left side column Auto-Adjust to shrink or expand-->
+          </div>
+
+          <!--"is-half" was added to make editor half window-->
+          <!--when it is "is-full" the button goes to far right into margin-->
+          <div class = "column is-half"> <!--Right column-->        
+            <div class = "editor">
+              <b-dropdown v-model="selectedLanguage">
+                <button slot="trigger" class="button is-primary">
+                  <span>{{ selectedLanguage.name }}</span>
+                 <b-icon icon="arrow-down"/>
+                </button>
+            
+                <b-dropdown-item v-for="lang in languages"
+                            v-bind:value="lang"
+                            v-bind:key="lang.name">
+                            {{ lang.name }}
+                </b-dropdown-item>
+              </b-dropdown>
+          
+                <!--This is the Resize button-->
+                <div class = "button is-warning is-pulled-right">
+                  <span class="icon">
+                    <i class="fas window-minimize"></i> <!--Somehow doesn't show the icon-->
+                  </span>
+                </div>
+
+              <!--I added width, might need to add right margin-->
+              <brace style="height: 500px; width: 1400px"
+                    :fontsize="'12px'"
+                    :theme="'github'"
+                    :mode="selectedLanguage.tag"
+                    :codefolding="'markbegin'"
+                    :softwrap="'free'"
+                    :selectionstyle="'text'"
+                    :highlightline="true">
+              </brace>
+            </div>            
+          </div>
+
         </div>
+
       </div>
-    </div>
-    <brace style="height: 500px"
-      :fontsize="'12px'"
-      :theme="'github'"
-      :mode="'python'"
-      :codefolding="'markbegin'"
-      :softwrap="'free'"
-      :selectionstyle="'text'"
-      :highlightline="true">
-    </brace>
-  </div>
+  </section>
 </template>
 
+
+
 <script>
+import Vue from 'vue'
 import Brace from 'vue-bulma-brace'
-export default {
+import Buefy from 'buefy'
+import 'vue-material-design-icons/styles.css' // added for the icon
+import MenuIcon from 'vue-material-design-icons/Menu.vue' // added for the icon
+// import 'buefy/lib/buefy.css'
+
+Vue.component('menu-icon', MenuIcon) // added for the icon
+
+Vue.use(Buefy, { // Vue.use(Buefy) was here.
+  // defaultIconPack: 'fas' // added for resize function, does nothing
+  // defaultContainerElement: '#content' // added for resize function, does nothing
+})
+
+export default{
   components: {
     Brace
   },
-  methods: {
-    myFunction: function () {
-      document.getElementById('myDropdown').classList.toggle('show')
+  data: function () {
+    let languages = [
+      {
+        name: 'Python 3',
+        tag: 'python'
+      },
+      {
+        name: 'Python 2',
+        tag: 'python'
+      },
+      {
+        name: 'Ruby',
+        tag: 'ruby'
+      },
+      {
+        name: 'Java',
+        tag: 'java'
+      },
+      {
+        name: 'JavaScript',
+        tag: 'javascript'
+      },
+      {
+        name: 'C++',
+        tag: 'cpp'
+      },
+      {
+        name: 'Erlang',
+        tag: 'erlang'
+      }
+    ]
+    return {
+      languages: languages,
+      selectedLanguage: languages[0]
     }
   }
 }
-
-// For 'Editor Mode' button behavior: open or close - starts after 1st mouse click
-document.addEventListener('click', function () {
-  // Dropdown
-  var $dropdown = getAll('.dropdown:not(.is-active)')
-  if ($dropdown.length > 0) {
-    $dropdown.forEach(function ($el) {
-      $el.addEventListener('click', function (event) {
-        event.stopPropagation()
-        $el.classList.toggle('is-active')
-      })
-    })
-    document.addEventListener('click', function (event) {
-      closeDropdown()
-    })
-  }
-  function closeDropdown () {
-    $dropdown.forEach(function ($el) {
-      $el.classList.remove('is-active')
-    })
-  }
-  // Close dropdown if ESC pressed
-  document.addEventListener('keydown', function (event) {
-    var e = event || window.event
-    if (e.keyCode === 27) {
-      closeDropdown()
-    }
-  })
-  // Functions
-  function getAll (selector) {
-    return Array.prototype.slice.call(document.querySelectorAll(selector), 0)
-  }
-})
 </script>
