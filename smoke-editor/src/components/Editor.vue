@@ -21,13 +21,18 @@
                             {{ lang.name }}
                 </b-dropdown-item>
               </b-dropdown>
-          
-                <!--This is the Resize button-->
-                <div class = "button is-warning is-pulled-right">
-                  <span class="icon">
-                    <i class="fas window-minimize"></i> <!--Somehow doesn't show the icon-->
-                  </span>
-                </div>
+              
+              <!--This is the Resize button-->
+              <div class = "button is-small is-warning is-pulled-right">
+                <span class="icon">
+                  <i class="fas window-minimize"></i> <!--Somehow doesn't show the icon-->
+                </span>
+              </div>
+
+              <!--Here is another Resize button-->
+              <div class="button is-small is-pulled-right is-rounded is-outlined is-danger">
+                  <input id="switchExample" type="checkbox" name="switchExample" class="switch" checked="checked">
+              </div>
 
               <!--I added width, might need to add right margin-->
               <brace style="height: 500px; width: 1400px"
@@ -38,7 +43,7 @@
                     :softwrap="'free'"
                     :selectionstyle="'text'"
                     :highlightline="true">
-              </brace>
+              </brace>              
             </div>            
           </div>
 
@@ -54,11 +59,6 @@
 import Vue from 'vue'
 import Brace from 'vue-bulma-brace'
 import Buefy from 'buefy'
-import 'vue-material-design-icons/styles.css' // added for the icon
-import MenuIcon from 'vue-material-design-icons/Menu.vue' // added for the icon
-// import 'buefy/lib/buefy.css'
-
-Vue.component('menu-icon', MenuIcon) // added for the icon
 
 Vue.use(Buefy, { // Vue.use(Buefy) was here.
   // defaultIconPack: 'fas' // added for resize function, does nothing
