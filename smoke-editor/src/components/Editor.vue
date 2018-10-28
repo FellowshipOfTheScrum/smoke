@@ -1,8 +1,8 @@
 <template>
   <section>
     <div class = "columns"> <!--Starts columns-->
-      <div class = "column"> <!--Left Auto column-->
-        <!--This makes the left side column Auto-Adjust to shrink or expand-->
+      <div v-if="height === 250px" class = "column"> <!--Left Auto column-->
+          <!--This makes the left side column Auto-Adjust to shrink or expand-->
       </div>
 
       <!--"is-half" was added to make editor half window-->
@@ -56,44 +56,42 @@
 
 
 <script>
-import Vue from 'vue'
-import Brace from 'vue-bulma-brace'
-import Buefy from 'buefy'
-// import 'buefy/lib/buefy.css'
-
-Vue.use(Buefy)
-
-export default{
-  components: {
-    Brace
-  },
-  data: function () {
-    let languages = [
-      {
-        name: 'Python 3',
-        tag: 'python'
-      },
-      {
-        name: 'Python 2',
-        tag: 'python'
-      },
-      {
-        name: 'Ruby',
-        tag: 'ruby'
-      },
-      {
-        name: 'Java',
-        tag: 'java'
-      },
-      {
-        name: 'JavaScript',
-        tag: 'javascript'
+  import Vue from 'vue'
+  import Brace from 'vue-bulma-brace'
+  import Buefy from 'buefy'
+  // import 'buefy/lib/buefy.css'
+  Vue.use(Buefy)
+  export default{
+    components: {
+      Brace
+    },
+    data: function () {
+      let languages = [
+        {
+          name: 'Python 3',
+          tag: 'python'
+        },
+        {
+          name: 'Python 2',
+          tag: 'python'
+        },
+        {
+          name: 'Ruby',
+          tag: 'ruby'
+        },
+        {
+          name: 'Java',
+          tag: 'java'
+        },
+        {
+          name: 'JavaScript',
+          tag: 'javascript'
+        }
+      ]
+      return {
+        languages: languages,
+        selectedLanguage: languages[0]
       }
-    ]
-    return {
-      languages: languages,
-      selectedLanguage: languages[0]
     }
   }
-}
 </script>
