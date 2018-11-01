@@ -13,6 +13,20 @@
       </b-dropdown-item>
     </b-dropdown>
 
+    <!--Maximize Button-->
+    <a class="button is-small  is-pulled-right">
+      <span class="icon is-small " v-on:click="maximize()">
+      <font-awesome-icon icon="window-maximize" />
+    </span>
+    </a>
+
+    <!--Minimize Button -->
+    <a class="button is-small  is-pulled-right">
+    <span class="icon is-small " v-on:click="minimize()">
+      <font-awesome-icon icon="window-minimize" />
+    </span>
+    </a>
+
     <brace style="height: 500px"
            :fontsize="'12px'"
            :theme="'xcode'"
@@ -65,6 +79,14 @@ export default{
     return {
       languages: languages,
       selectedLanguage: languages[0]
+    }
+  },
+  methods: {
+    maximize: function () {
+      console.log('maximized')
+    },
+    minimize: function () {
+      console.log('minimized')
     }
   }
 }
