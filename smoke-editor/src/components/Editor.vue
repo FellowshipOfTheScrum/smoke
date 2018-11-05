@@ -44,12 +44,9 @@
                     :selectionstyle="'text'"
                     :highlightline="true">
               </brace>              
-            </div>            
+            </div>           
           </div>
-
-        </div>
-
-      </div>
+      </div>  
   </section>
 </template>
 
