@@ -25,4 +25,22 @@ describe('Editor.vue', () => {
 
     done()
   })
+
+  it('should default to full size', () => {
+    const vm = mount(Editor)
+    expect(vm.windowSize).to.equal('maximum')
+  })
+
+  it('should change to the small size', () => {
+    const vm = mount(Editor)
+    vm.shrinkWindow()
+    expect(vm.windowSize).to.equal('minimum')
+  })
+
+  it('should change back to default size', () => {
+    const vm = mount(Editor)
+    vm.shrinkWindow()
+    vm.growWindow()
+    expect(vm.windowSize).to.equal('maximum')
+  })
 })

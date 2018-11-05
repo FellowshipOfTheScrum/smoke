@@ -15,6 +15,10 @@
     "report-coverage": "codecov"
   },
   "dependencies": {
+    "@fortawesome/fontawesome-svg-core": "^1.2.7",
+    "@fortawesome/free-solid-svg-icons": "^5.4.2",
+    "@fortawesome/vue-fontawesome": "^0.1.1",
+    "@mdi/font": "^3.0.39",
     "@casl/ability": "^2.5.0",
     "@casl/vue": "^0.4.3",
     "@fortawesome/fontawesome-svg-core": "^1.2.8",
@@ -28,10 +32,12 @@
     "sass-loader": "^7.1.0",
     "vue": "^2.5.2",
     "vue-bulma-brace": "^0.1.0",
+    "vue-bulma-components": "^1.7.1",
+    "vue-material-design-icons": "^2.3.0",
     "vue-resource": "^1.5.1",
     "vue-router": "^3.0.1",
-    "vue2-ace-editor": "^0.0.11",
     "vuex": "^3.0.1",
+    "vue2-ace-editor": "^0.0.11",
     "vuex-persistedstate": "^2.5.4"
   },
   "devDependencies": {
