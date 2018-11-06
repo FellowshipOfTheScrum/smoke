@@ -1,93 +1,146 @@
 <template>
-  <div class = "editor">
-    <b-dropdown v-model="selectedLanguage">
-      <button slot="trigger" class="button is-primary">
-        <span>{{ selectedLanguage.name }}</span>
-        <b-icon icon="arrow-down"/>
-      </button>
-
-      <b-dropdown-item v-for="lang in languages"
-                       v-bind:value="lang"
-                       v-bind:key="lang.name">
-                       {{ lang.name }}
-      </b-dropdown-item>
-    </b-dropdown>
-
-    <!--Maximize Button-->
-    <a class="button is-small  is-pulled-right">
-      <span class="icon is-small " v-on:click="maximize()">
-      <font-awesome-icon icon="window-maximize" />
-    </span>
+  <section>
+    <a class="button is-small is-pulled-right">
+      <template v-if="windowSize==='maximum'">
+        <span class="icon is-small " v-on:click="shrinkWindow()">
+          <font-awesome-icon icon="window-minimize" />
+        </span>
+      </template>
+      <template v-else>
+        <span class="icon is-small " v-on:click="growWindow()">
+          <font-awesome-icon icon="window-maximize" />
+        </span>
+      </template>
     </a>
 
-    <!--Minimize Button -->
-    <a class="button is-small  is-pulled-right">
-    <span class="icon is-small " v-on:click="minimize()">
-      <font-awesome-icon icon="window-minimize" />
-    </span>
-    </a>
+    <div class="columns">
+      <div class="column"></div>
+      <template v-if="windowSize==='maximum'">
+        <div class="column is-full">
+          <editor style="height: 500px"
+                  theme="github"
+                  :lang="selectedLanguage.tag"
+                  v-model="content"
+                  @init="editorInit">
+          </editor>
+          <b-dropdown v-model="selectedLanguage">
+            <button
+              slot="trigger"
+              class="button is-primary">
+              <span>{{ selectedLanguage.name }}</span>
+              <b-icon icon="menu-down"/>
+            </button>
 
-    <brace style="height: 500px"
-           :fontsize="'12px'"
-           :theme="'xcode'"
-           :mode="selectedLanguage.tag"
-           :codefolding="'markbegin'"
-           :softwrap="'free'"
-           :selectionstyle="'text'"
-           :highlightline="true">
-    </brace>
-  </div>
+            <b-dropdown-item
+              v-for="lang in languages"
+              :value="lang"
+              :key="lang.name">
+              {{ lang.name }}
+            </b-dropdown-item>
+          </b-dropdown>
+          <button
+            class="button is-primary"
+            @click="submit">
+            Test
+          </button>
+        </div>
+      </template>
+      <template v-else>
+
+        <div class="column is-half">
+          <editor style="height: 250px"
+                  theme="github"
+                  :lang="selectedLanguage.tag"
+                  v-model="content"
+                  @init="editorInit">
+          </editor>
+          <b-dropdown v-model="selectedLanguage">
+            <button
+              slot="trigger"
+              class="button is-primary">
+              <span>{{ selectedLanguage.name }}</span>
+              <b-icon icon="menu-down"/>
+            </button>
+
+            <b-dropdown-item
+              v-for="lang in languages"
+              :value="lang"
+              :key="lang.name">
+              {{ lang.name }}
+            </b-dropdown-item>
+          </b-dropdown>
+          <button
+            class="button is-primary"
+            @click="submit">
+            Test
+          </button>
+        </div>
+      </template>
+    </div>
+  </section>
 </template>
 
-
-
 <script>
-import Vue from 'vue'
-import Brace from 'vue-bulma-brace'
-import Buefy from 'buefy'
-// import 'buefy/lib/buefy.css'
-
-Vue.use(Buefy)
-
-export default{
-  components: {
-    Brace
-  },
-  data: function () {
-    let languages = [
-      {
-        name: 'Python 3',
-        tag: 'python'
-      },
-      {
-        name: 'Python 2',
-        tag: 'python'
-      },
-      {
-        name: 'Ruby',
-        tag: 'ruby'
-      },
-      {
-        name: 'Java',
-        tag: 'java'
-      },
-      {
-        name: 'JavaScript',
-        tag: 'javascript'
-      }
-    ]
-    return {
-      languages: languages,
-      selectedLanguage: languages[0]
-    }
-  },
-  methods: {
-    maximize: function () {
-      console.log('maximized')
+  import axios from 'axios'
+  import { API_URL } from '@/definitions'
+  let languages = [
+    {
+      name: 'Python 2',
+      tag: 'python'
     },
-    minimize: function () {
-      console.log('minimized')
+    {
+      name: 'Python 3',
+      tag: 'python'
+    },
+    {
+      name: 'Ruby',
+      tag: 'ruby'
+    },
+    {
+      name: 'Java',
+      tag: 'java'
+    },
+    {
+      name: 'JavaScript',
+      tag: 'javascript'
+    }
+  ]
+  export default {
+    components: {
+      editor: require('vue2-ace-editor')
+    },
+    methods: {
+      growWindow: function () {
+        this.windowSize = 'maximum'
+        this.windowHeight = 500
+      },
+      shrinkWindow: function () {
+        this.windowSize = 'minimum'
+        this.windowHeight = 250
+      },
+      editorInit () {
+        require('brace/ext/language_tools')
+        require('brace/theme/github')
+        languages.forEach((lang) => require('brace/mode/' + lang.tag))
+      },
+      async submit () {
+        await axios.post(API_URL + '/api/v1/test', {
+          code: window.btoa(this.content)
+        }, {
+          headers: {
+            Authorization: `Bearer ${this.$store.state.auth.access_token}`
+          }
+        })
+      }
+    },
+    data: function () {
+      return {
+        windowSize: 'maximum',
+        windowHeight: 500,
+        languages: languages,
+        selectedLanguage: languages[0],
+        content: ''
+      }
     }
   }
-}
 </script>
