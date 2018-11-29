@@ -26,6 +26,7 @@ script:
 =======
   - .travis/run.sh
   - sonar-scanner
+  ./gradlew clearn check sonarqube build
 
 cache:
   directories:
