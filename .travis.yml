@@ -8,7 +8,7 @@ cache:
   .gradle
 addons:
   sonarcloud:
-    organization: lruizarc-github
+    organization: lruizarc-fellowshipofthescrum-github
     token:
       secure:23dce1922f7ec756939755578397f9429470b04d
 python:
