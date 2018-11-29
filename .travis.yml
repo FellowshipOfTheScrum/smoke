@@ -9,6 +9,11 @@ python:
 node_js:
   - "node"
 
+addons:
+  sonarcloud:
+    organization: lruizarc-github
+    token:
+      secure:23dce1922f7ec756939755578397f9429470b04d
 before_install:
   - pip install -U tox tox-travis
   - export CHROME_BIN=chromium-browser
@@ -17,3 +22,10 @@ before_install:
 
 script:
   - .travis/run.sh
+
+cache:
+  directories:
+  $HOME/.m2/repository
+  $HOME/.sonar/cache
+  $HOME/.gradle
+  .gradle
