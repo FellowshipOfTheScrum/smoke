@@ -26,6 +26,7 @@ script:
 =======
   - .travis/run.sh
   - sonar-scanner
+  - bash sonar.sh
   
 
 cache:
